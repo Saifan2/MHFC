@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
@@ -6,15 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>שינוי מחירי מנויים - מכבי חיפה</title>
 <style>
-:root{--green:#003f25;--green2:#026238;--line:#d9efe1;--text:#fff;--muted:#b9d8c6;--gold:#d6a21f;--silver:#d8d8d8;--purple:#7a1fa2;--family:#82bd42}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#08703e,#00351f 55%,#001d12);font-family:Arial,Helvetica,sans-serif;color:var(--text);padding:24px}.wrap{max-width:1180px;margin:auto}.hero{text-align:center;margin-bottom:18px}.stars{font-size:42px;color:#d9b35a;letter-spacing:8px}.title{font-size:56px;font-weight:900;letter-spacing:1px;margin:0}.season{font-size:28px;letter-spacing:8px;color:#b7e0bd}.sub{color:#cae7d2;margin-top:8px}.controls{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:22px 0}.btn{border:1px solid #bfe8cd;background:#fff;color:#004326;padding:12px 18px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px #0005}.btn.active{background:#78c257;color:#fff}.legend{text-align:center;color:#e0f2e5;margin-bottom:14px}.table{width:100%;border-collapse:collapse;table-layout:fixed;border:2px solid var(--line);box-shadow:0 12px 40px #0008;background:#014b2c}.table th{background:#01351f;color:white;font-size:20px;padding:12px;border:1px solid var(--line)}.table td{border:1px solid rgba(217,239,225,.8);text-align:center;padding:9px 7px;height:58px;font-weight:800}.stand{width:130px;font-size:24px;color:#fff}.stand.gold{background:linear-gradient(135deg,#c98a00,#f0bf38);color:#fff}.stand.silver{background:linear-gradient(135deg,#ddd,#aaa);color:#26322d}.stand.green{background:linear-gradient(135deg,#006737,#008c4b)}.stand.family{background:linear-gradient(135deg,#67a92d,#9bd44f)}.stand.purple{background:linear-gradient(135deg,#5f1689,#9d3cc2)}.area{font-size:20px}.cell{display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center}.now{font-size:20px}.prev{font-size:12px;color:var(--muted);font-weight:700}.diff,.pct{font-size:18px;color:#9de077}.na{color:#b7c7bd;font-size:13px}.mode-diff .pct{display:none}.mode-pct .diff{display:none}.mode-price .diff,.mode-price .pct{display:none}.note{margin-top:18px;color:#d5eadc;line-height:1.7;font-size:14px}.missing{opacity:.55}</style>
+:root{
+  --green:#003f25;--green2:#026238;--line:#d9efe1;--text:#fff;--muted:#b9d8c6;
+  --gold:#d6a21f;--silver:#d8d8d8;--purple:#7a1fa2;--family:#82bd42;
+}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#08703e,#00351f 55%,#001d12);
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  padding:18px;
+}
+.wrap{max-width:1180px;margin:auto}
+.hero{text-align:center;margin-bottom:18px}
+.stars{font-size:42px;color:#d9b35a;letter-spacing:8px}
+.title{font-size:56px;font-weight:900;letter-spacing:1px;margin:0;line-height:1.05}
+.season{font-size:28px;letter-spacing:8px;color:#b7e0bd;margin-top:8px}
+.sub{color:#cae7d2;margin-top:8px}
+.controls{
+  position:sticky;top:0;z-index:5;
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  margin:18px 0;padding:10px 0;
+  background:linear-gradient(#014829ee,#014829cc);
+  backdrop-filter:blur(8px);
+  border-radius:18px;
+}
+.btn{
+  border:1px solid #bfe8cd;background:#fff;color:#004326;
+  padding:12px 18px;border-radius:999px;font-weight:800;cursor:pointer;
+  box-shadow:0 4px 12px #0005;font-size:15px;
+}
+.btn.active{background:#78c257;color:#fff}
+.legend{text-align:center;color:#e0f2e5;margin-bottom:14px;line-height:1.5}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;box-shadow:0 12px 40px #0008}
+.table{width:100%;border-collapse:collapse;table-layout:fixed;border:2px solid var(--line);background:#014b2c;min-width:950px}
+.table th{background:#01351f;color:white;font-size:20px;padding:12px;border:1px solid var(--line);position:sticky;top:0;z-index:2}
+.table td{border:1px solid rgba(217,239,225,.8);text-align:center;padding:9px 7px;height:58px;font-weight:800}
+.stand{width:130px;font-size:24px;color:#fff}
+.stand.gold{background:linear-gradient(135deg,#c98a00,#f0bf38);color:#fff}
+.stand.silver{background:linear-gradient(135deg,#ddd,#aaa);color:#26322d}
+.stand.green{background:linear-gradient(135deg,#006737,#008c4b)}
+.stand.family{background:linear-gradient(135deg,#67a92d,#9bd44f)}
+.stand.purple{background:linear-gradient(135deg,#5f1689,#9d3cc2)}
+.area{font-size:20px}
+.cell{display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center}
+.now{font-size:20px}.prev{font-size:12px;color:var(--muted);font-weight:700}.diff,.pct{font-size:18px;color:#9de077}.na{color:#b7c7bd;font-size:13px}
+.mode-diff .pct{display:none}.mode-pct .diff{display:none}.mode-price .diff,.mode-price .pct{display:none}
+.note{margin-top:18px;color:#d5eadc;line-height:1.7;font-size:14px}.missing{opacity:.55}
+.mobile-cards{display:none}
+
+@media (max-width: 760px){
+  body{padding:10px;background:radial-gradient(circle at top,#08703e,#00351f 50%,#001d12)}
+  .wrap{width:100%}
+  .stars{font-size:26px;letter-spacing:4px}
+  .title{font-size:31px;line-height:1.1}
+  .season{font-size:17px;letter-spacing:4px}
+  .sub{font-size:14px}
+  .controls{gap:7px;margin:12px 0;border-radius:14px;padding:8px}
+  .btn{flex:1 1 30%;min-width:0;padding:10px 6px;font-size:13px;white-space:nowrap}
+  .legend{font-size:13px;margin:8px 2px 12px}
+  .table-wrap{display:none}
+  .mobile-cards{display:grid;gap:12px}
+  .card{border:1px solid rgba(217,239,225,.9);border-radius:16px;overflow:hidden;background:#014b2c;box-shadow:0 8px 24px #0007}
+  .card-head{display:grid;grid-template-columns:112px 1fr;min-height:58px}
+  .card-stand{display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:18px;padding:8px}
+  .card-area{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:10px 12px;background:#01351f;font-weight:900;font-size:18px}
+  .card-area small{font-size:12px;color:#b9d8c6;font-weight:700}
+  .tenure-grid{display:grid;grid-template-columns:1fr;gap:0}
+  .tenure-row{display:grid;grid-template-columns:92px 1fr;align-items:center;border-top:1px solid rgba(217,239,225,.55)}
+  .tenure-label{height:100%;padding:11px 8px;background:#00351f;font-weight:900;color:#d7f0df;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px}
+  .tenure-value{padding:10px 12px;min-height:58px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .mobile-cards .cell{gap:3px}
+  .mobile-cards .now{font-size:22px}
+  .mobile-cards .prev{font-size:12px}
+  .mobile-cards .diff,.mobile-cards .pct{font-size:22px;color:#9de077}
+  .note{font-size:12px;margin:12px 2px 0}
+}
+</style>
 </head>
 <body class="mode-price">
 <div class="wrap">
   <div class="hero"><div class="stars">★ ★ ★</div><h1 class="title">שינוי מחירי המנויים</h1><div class="season">26/27 מול 25/26</div><div class="sub">לפי עונת התחלת המנוי / ותק</div></div>
   <div class="controls"><button class="btn active" data-mode="price">הצג מחירים</button><button class="btn" data-mode="diff">הצג הפרש ₪</button><button class="btn" data-mode="pct">הצג אחוזים</button></div>
   <div class="legend">בתוך כל תא: מחיר העונה הנוכחית, ומתחתיו מחיר עונה קודמת. הכפתורים מחליפים להצגת ההפרש או אחוז השינוי.</div>
-  <table class="table" id="tbl"></table>
+  <div class="table-wrap"><table class="table" id="tbl"></table></div>
+  <div class="mobile-cards" id="cards"></div>
   <div class="note">* עמודת התחלה 25/26 היא מנוי חדש ביחס לעונה הקודמת ולכן אין לה מחיר קודם להשוואה. נתונים שהיו חסרים/לא ברורים בתמונה סומנו כריקים.</div>
 </div>
 <script>
@@ -50,6 +127,17 @@ const tbl=document.getElementById('tbl');
 let html='<thead><tr><th class="stand">יציע</th><th>אזורים</th>'+tenures.map(t=>`<th>התחיל ב-${t}</th>`).join('')+'</tr></thead><tbody>';
 for(const r of rows){html+=`<tr><td class="stand ${r.cls}">${r.stand}</td><td class="area">${r.area}</td>`;for(let i=0;i<tenures.length;i++){const missing=r.prev[i]==null;html+=`<td class="${missing?'missing':''}"><div class="cell"><div class="now">${fmt(r.now[i])}</div><div class="prev">קודם: ${fmt(r.prev[i])}</div><div class="diff">${diff(r.now[i],r.prev[i])}</div><div class="pct">${pct(r.now[i],r.prev[i])}</div></div></td>`}html+='</tr>'}
 html+='</tbody>';tbl.innerHTML=html;
+const cards=document.getElementById('cards');
+let cardHtml='';
+for(const r of rows){
+  cardHtml+=`<section class="card"><div class="card-head"><div class="card-stand ${r.cls}">${r.stand}</div><div class="card-area"><small>אזורים</small>${r.area}</div></div><div class="tenure-grid">`;
+  for(let i=0;i<tenures.length;i++){
+    const missing=r.prev[i]==null;
+    cardHtml+=`<div class="tenure-row ${missing?'missing':''}"><div class="tenure-label">התחיל<br>${tenures[i]}</div><div class="tenure-value"><div class="cell"><div class="now">${fmt(r.now[i])}</div><div class="prev">קודם: ${fmt(r.prev[i])}</div><div class="diff">${diff(r.now[i],r.prev[i])}</div><div class="pct">${pct(r.now[i],r.prev[i])}</div></div></div></div>`;
+  }
+  cardHtml+='</div></section>';
+}
+cards.innerHTML=cardHtml;
 document.querySelectorAll('.btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.body.className='mode-'+b.dataset.mode});
 </script>
 </body>
